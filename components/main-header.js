@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link' // imports Link component
 
 export default function MainHeader() {
   return (
