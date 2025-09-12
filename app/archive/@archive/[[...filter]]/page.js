@@ -10,7 +10,9 @@ import {
 export default function FilteredNewsPage({ params }) {
   const filter = params.filter
 
-  //notations to access first stored value
+  // Dealing with Multiple-Segments of a Page
+
+  // notations to access first stored value
   //longer alt. code is tertinary operator is filter ? filter [0] : undefined
   const selectedYear = filter?.[0]
   const selectedMonth = filter?.[1]
@@ -24,18 +26,26 @@ export default function FilteredNewsPage({ params }) {
     links = getAvailableNewsMonths(selectedYear)
   }
 
-  //  Conditional - displays the specific news for a specific year and month
+  //  Conditional - displays the specific news for a specific year and month combination
   if (selectedYear && selectedMonth) {
     news = getNewsForYearAndMonth(selectedYear, selectedMonth)
     links = []
-  }
+  } // view on archive/year/month
 
-  // Conditional - otherwise display this message if nothing is picked
+  // FallBack Text if nothing is selected- otherwise display this message if nothing is picked
 
   let newsContent = <p>Select a year to view news.</p>
 
   if (news && news.length > 0) {
     newsContent = <NewsList news={news} />
+  }
+
+  if (
+    (selectedYear && !getAvailableNewsYears().includes(selectedYear)) ||
+    (selectedMonth &&
+      !getAvailableNewsMonths(selectedYear).includes(selectedMonth))
+  ) {
+    throw new Error('Invalid filter.')
   }
 
   return (
