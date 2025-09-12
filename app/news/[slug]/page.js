@@ -1,11 +1,17 @@
 /* News Detail Page - shows the current page ID*/
 
 import { DUMMY_NEWS } from '@/dummy-news'
+import { notFound } from 'next/navigation'
 
 export default function NewsDetailPage({ params }) {
   // loaded with params prop that's passed to every page
   const newsSlug = params.slug
   const newsItem = DUMMY_NEWS.find((newsItem) => newsItem.slug === newsSlug)
+
+  // Handles error to fall back to if newsItem that user navigates to if not found
+  if (!newsItem) {
+    notFound()
+  }
 
   return (
     <article className="news-article">
