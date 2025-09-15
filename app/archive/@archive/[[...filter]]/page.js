@@ -40,6 +40,7 @@ export default function FilteredNewsPage({ params }) {
     newsContent = <NewsList news={news} />
   }
 
+  // Fallback Text - Throws Error message for Route-Related errors
   if (
     (selectedYear && !getAvailableNewsYears().includes(selectedYear)) ||
     (selectedMonth &&
